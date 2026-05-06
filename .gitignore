@@ -1,0 +1,105 @@
+# =========================
+
+# 🔷 .NET / ASP.NET Core
+
+# =========================
+
+# Build output
+
+**/bin/
+**/obj/
+**/out/
+**/publish/
+
+# Visual Studio
+
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider / VSCode
+
+.idea/
+.vscode/
+
+**/appsettings.*.json
+!**/appsettings.json
+
+# Static build files (nếu có build frontend vào wwwroot)
+
+**/wwwroot/dist/
+**/wwwroot/lib/
+
+# Entity Framework
+
+**/Migrations/*.Designer.cs
+
+# NuGet
+
+**/packages/
+**/.nuget/
+*.nupkg
+*.snupkg
+
+# Logs
+
+*.log
+
+# Test / Coverage
+
+TestResults/
+*.coverage
+*.coveragexml
+
+# =========================
+
+# 🔷 React / Frontend
+
+# =========================
+
+# Dependencies
+
+web/node_modules/
+
+# Build output
+
+web/build/
+web/dist/
+
+# Coverage
+
+web/coverage/
+
+# Env files
+
+web/.env
+web/.env.*
+!web/.env.example
+
+# Logs
+
+web/npm-debug.log*
+web/yarn-debug.log*
+web/yarn-error.log*
+web/pnpm-debug.log*
+
+# =========================
+
+# 🔷 OS / System
+
+# =========================
+
+.DS_Store
+Thumbs.db
+
+# =========================
+
+# 🔷 Docker
+
+# =========================
+
+docker-compose.override.yml
+**/docker-compose.vs.debug.yml
+**/docker-compose.vs.release.yml
