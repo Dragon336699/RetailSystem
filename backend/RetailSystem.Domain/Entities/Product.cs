@@ -5,6 +5,8 @@
         public Guid Id { get; init; } = Guid.NewGuid();
         public required string ProductName { get; set; }
         public DateTimeOffset CreatedAt { get; init; } = DateTimeOffset.UtcNow;
+        public DateTimeOffset UpdatedAt { get; set; } = DateTimeOffset.UtcNow;
+        public string? Description { get; set; }
         public decimal Price { get; set; }
         public decimal RatingAverage { get; set; } = 0;
         public ICollection<ProductVariant> ProductVariants { get; set; } = new List<ProductVariant>();
