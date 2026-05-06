@@ -58,6 +58,18 @@ namespace RetailSystem.Infrastructure.Repositories
             return await _context.Set<T>().FindAsync(id);
         }
 
+        public async Task<T?> GetWithConditionAndIncludeAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)
+        {
+            IQueryable<T> query = _context.Set<T>();
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            return await query.FirstOrDefaultAsync(predicate);
+        }
+
+
         public async Task<List<T>> GetByIdsAsync(IEnumerable<Guid> ids)
         {
             return await _context.Set<T>().Where(x => ids.Contains(EF.Property<Guid>(x, "Id"))).ToListAsync();

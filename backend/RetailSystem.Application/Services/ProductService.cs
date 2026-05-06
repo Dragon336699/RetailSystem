@@ -21,14 +21,21 @@ namespace RetailSystem.Application.Services
             _cloudinaryService = cloudinaryService;
         }
 
-        public async Task<List<Product>> GetProductsAsync(int skip = 0, int take = 10)
+        public async Task<List<ProductDto>> GetProductsAsync(int skip = 0, int take = 10)
         {
-            return await _unitOfWork.Products.GetProductsAsync(skip, take);
+            var products = await _unitOfWork.Products.GetProductsAsync(skip, take);
+            return _mapper.Map<List<ProductDto>>(products);
         }
 
-        public async Task<Product?> GetProductByIdAsync(Guid id)
+        public async Task<ProductDto?> GetProductByIdAsync(Guid id)
         {
-            return await _unitOfWork.Products.GetByIdAsync(id);
+            var product = await _unitOfWork.Products.GetWithConditionAndIncludeAsync(
+                    p => p.Id == id,
+                    p => p.Categories,
+                    p => p.ProductImages
+             );
+
+            return product == null ? null : _mapper.Map<ProductDto>(product);
         }
 
         public async Task<ProductDto> AddProductAsync(CreateProductCommand productCommand)

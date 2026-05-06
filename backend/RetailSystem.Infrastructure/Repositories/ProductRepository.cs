@@ -13,7 +13,12 @@ namespace RetailSystem.Infrastructure.Repositories
 
         public async Task<List<Product>> GetProductsAsync(int skip = 0, int take = 10)
         {
-            return await _context.Products.Skip(skip).Take(take).ToListAsync();
+            return await _context.Products
+                .Include(p => p.ProductImages)
+                .Include(p => p.Categories)
+                .Skip(skip)
+                .Take(take)
+                .ToListAsync();
         }
     }
 }

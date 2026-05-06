@@ -13,6 +13,7 @@ namespace RetailSystem.Application.Interfaces.Repositories
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entities);
         Task<T?> GetByIdAsync(object id);
+        Task<T?> GetWithConditionAndIncludeAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes);
         Task<List<T>> GetByIdsAsync(IEnumerable<Guid> ids);
         Task<IEnumerable<T>> GetAllAsync();
         Task AddAsync(T entity);
