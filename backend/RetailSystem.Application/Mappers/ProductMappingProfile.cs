@@ -9,6 +9,9 @@ namespace RetailSystem.Application.Mappers
         public ProductMappingProfile()
         {
             CreateMap<CreateProductCommand, Product>();
+            CreateMap<Product, ProductDto>();
+
+            CreateMap<ProductImage, ProductImageDto>();
         }
     }
 }

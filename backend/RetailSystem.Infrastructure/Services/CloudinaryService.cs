@@ -30,8 +30,8 @@ namespace RetailSystem.Infrastructure.Services
                 {
                     File = new FileDescription(fileInfo.FileName, fileInfo.Content),
                     Folder = folderName,
-                    UseFilename = true,
-                    UniqueFilename = false,
+                    UseFilename = false,
+                    UniqueFilename = true,
                 };
 
                 uploadResult = await cloudinary.UploadAsync(uploadParams);

@@ -35,12 +35,12 @@ namespace RetailSystem.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddProduct([FromBody] CreateProductRequest productRequest)
+        public async Task<IActionResult> AddProduct([FromForm] CreateProductRequest productRequest)
         {
             CreateProductCommand createProductCommand = productRequest.ToCommand();
 
-            await _productService.AddProductAsync(createProductCommand);
-            return Ok();
+            var productAdded = await _productService.AddProductAsync(createProductCommand);
+            return Ok(productAdded);
         }
     }
 }

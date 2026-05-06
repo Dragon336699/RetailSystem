@@ -9,6 +9,7 @@ namespace RetailSystem.Application.Mappers
         public CategoryMappingProfile()
         {
             CreateMap<CreateCategoryCommand, Category>();
+            CreateMap<Category, CategoryDto>();
         }
     }
 }

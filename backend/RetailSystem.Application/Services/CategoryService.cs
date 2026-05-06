@@ -21,12 +21,14 @@ namespace RetailSystem.Application.Services
             return _unitOfWork.Categories.GetAll().ToList();
         }
 
-        public async Task AddCategoryAsync(List<CreateCategoryCommand> command)
+        public async Task<List<CategoryDto>> AddCategoryAsync(List<CreateCategoryCommand> command)
         {
             var categories = _mapper.Map<List<Category>>(command);
 
             await _unitOfWork.Categories.AddRangeAsync(categories);
             await _unitOfWork.CompleteAsync();
+
+            return _mapper.Map<List<CategoryDto>>(categories);
         }
 
         public async Task UpdateCategoryAsync(UpdateCategoryCommand command)

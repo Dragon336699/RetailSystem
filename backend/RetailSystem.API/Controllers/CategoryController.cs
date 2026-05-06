@@ -23,10 +23,10 @@ namespace RetailSystem.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetCategory([FromBody] List<CreateCategoryCommand> request)
+        public async Task<IActionResult> AddNewCategories([FromBody] List<CreateCategoryCommand> request)
         {
-            await _categoryService.AddCategoryAsync(request);
-            return Ok();
+            var categoriesAdded = await _categoryService.AddCategoryAsync(request);
+            return Ok(categoriesAdded);
         }
 
         [HttpPut]

@@ -31,7 +31,7 @@ namespace RetailSystem.Application.Services
             return await _unitOfWork.Products.GetByIdAsync(id);
         }
 
-        public async Task AddProductAsync(CreateProductCommand productCommand)
+        public async Task<ProductDto> AddProductAsync(CreateProductCommand productCommand)
         {
             await _serviceProvider.ValidateAndThrowAsync(productCommand);
 
@@ -59,12 +59,15 @@ namespace RetailSystem.Application.Services
 
             product.ProductImages = imageUrls.Select((url, index) => new ProductImage
             {
+                ColorId = productCommand.ColorId,
                 ImageUrl = url,
                 IsThumbnail = index == productCommand.ThumbnailIndex
             }).ToList();
 
             await _unitOfWork.Products.AddAsync(product);
             await _unitOfWork.CompleteAsync();
+
+            return _mapper.Map<ProductDto>(product);
         }
     }
 }

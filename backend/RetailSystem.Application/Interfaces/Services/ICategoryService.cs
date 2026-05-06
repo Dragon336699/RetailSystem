@@ -6,7 +6,7 @@ namespace RetailSystem.Application.Interfaces.Services
     public interface ICategoryService
     {
         List<Category> GetAllCategories();
-        Task AddCategoryAsync(List<CreateCategoryCommand> command);
+        Task<List<CategoryDto>> AddCategoryAsync(List<CreateCategoryCommand> command);
         Task UpdateCategoryAsync(UpdateCategoryCommand command);
         Task DeleteCategoryAsync(Guid id);
     }

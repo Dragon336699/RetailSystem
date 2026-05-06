@@ -8,6 +8,6 @@ namespace RetailSystem.Application.Interfaces.Services
     {
         Task<List<Product>> GetProductsAsync(int skip = 0, int take = 10);
         Task<Product?> GetProductByIdAsync(Guid id);
-        Task AddProductAsync(CreateProductCommand product);
+        Task<ProductDto> AddProductAsync(CreateProductCommand product);
     }
 }
