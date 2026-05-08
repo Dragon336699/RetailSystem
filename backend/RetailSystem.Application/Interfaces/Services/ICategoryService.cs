@@ -7,7 +7,7 @@ namespace RetailSystem.Application.Interfaces.Services
     {
         List<Category> GetAllCategories();
         Task<List<CategoryDto>> AddCategoryAsync(List<CreateCategoryCommand> command);
-        Task UpdateCategoryAsync(UpdateCategoryCommand command);
+        Task<CategoryDto> UpdateCategoryAsync(UpdateCategoryCommand command);
         Task DeleteCategoryAsync(Guid id);
     }
 }

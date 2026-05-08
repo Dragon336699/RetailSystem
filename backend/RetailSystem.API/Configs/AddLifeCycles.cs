@@ -17,6 +17,8 @@ namespace RetailSystem.API.Configs
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IProductImageRepository, ProductImageRepository>();
+            services.AddScoped<IProductVariantRepository, ProductVariantRepository>();
 
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICategoryService, CategoryService>();

@@ -31,16 +31,31 @@ namespace RetailSystem.API.Controllers
             if (product == null)
                 return NotFound();
             return Ok(product);
-
         }
 
         [HttpPost]
         public async Task<IActionResult> AddProduct([FromForm] CreateProductRequest productRequest)
         {
-            CreateProductCommand createProductCommand = productRequest.ToCommand();
+            CreateProductCommand createProductCommand = productRequest.ToCreateProductCommand();
 
             var productAdded = await _productService.AddProductAsync(createProductCommand);
             return Ok(productAdded);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateProduct([FromForm] UpdateProductRequest productRequest)
+        {
+            UpdateProductCommand updateProductCommand = productRequest.ToUpdateProductCommand();
+
+            var productAdded = await _productService.UpdateProductAsync(updateProductCommand);
+            return Ok(productAdded);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteProduct(Guid id)
+        {
+            await _productService.DeleteProductAsync(id);
+            return Ok();
         }
     }
 }

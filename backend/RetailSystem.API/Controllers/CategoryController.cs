@@ -32,8 +32,8 @@ namespace RetailSystem.API.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateCategoy([FromBody] UpdateCategoryCommand request)
         {
-            await _categoryService.UpdateCategoryAsync(request);
-            return Ok();
+            var categoryUpdated = await _categoryService.UpdateCategoryAsync(request);
+            return Ok(categoryUpdated);
         }
 
         [HttpDelete]

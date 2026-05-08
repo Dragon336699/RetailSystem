@@ -9,16 +9,23 @@ namespace RetailSystem.Infrastructure.UnitOfWork
         private readonly RetailSystemDbContext _context;
         public IProductRepository Products { get; }
         public ICategoryRepository Categories { get; }
+        public IProductImageRepository ProductImages { get; }
+        public IProductVariantRepository ProductVariants { get; }
 
         public UnitOfWork(
             RetailSystemDbContext context,
             IProductRepository productRepository,
-            ICategoryRepository categoryRepository
+            ICategoryRepository categoryRepository,
+            IProductImageRepository productImageRepository,
+            IProductVariantRepository productVariants
+
             )
         {
             _context = context;
             Products = productRepository;
             Categories = categoryRepository;
+            ProductImages = productImageRepository;
+            ProductVariants = productVariants;
         }
 
         public int Complete()

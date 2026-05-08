@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using RetailSystem.Application.Common.Validators;
 using RetailSystem.Application.Dtos.Products;
 using RetailSystem.Application.Interfaces.Services;
@@ -75,6 +76,108 @@ namespace RetailSystem.Application.Services
             await _unitOfWork.CompleteAsync();
 
             return _mapper.Map<ProductDto>(product);
+        }
+
+        public async Task<ProductDto> UpdateProductAsync(UpdateProductCommand productCommand)
+        {
+            await _serviceProvider.ValidateAndThrowAsync(productCommand);
+
+            var categories = await _unitOfWork.Categories.GetByIdsAsync(productCommand.CategoryIds);
+
+            Product? product = await _unitOfWork.Products.GetWithConditionAndIncludeAsync(
+                    p => p.Id == productCommand.Id,
+                    p => p.Categories,
+                    p => p.ProductImages,
+                    p => p.ProductVariants
+            );
+
+            if (product == null)
+            {
+                throw new KeyNotFoundException("Product not found.");
+            }
+
+            //Update product properties
+            product.ProductName = productCommand.ProductName;
+            product.Price = productCommand.Price;
+
+            product.Categories = categories;
+
+            //product.ProductVariants = productCommand.SizesQuantity;
+
+            foreach (var req in productCommand.SizesQuantity)
+            {
+                var existing = product.ProductVariants.FirstOrDefault(pv => pv.Id == req.Id);
+
+                if (existing != null)
+                {
+                    existing.StockQuantity = req.Quantity;
+                }
+                else
+                {
+                    _unitOfWork.ProductVariants.Add(new ProductVariant
+                    {
+                        ProductId = product.Id,
+                        ColorId = productCommand.ColorId,
+                        SizeId = req.SizeId,
+                        StockQuantity = req.Quantity
+                    });
+                }
+            }
+
+            //Clear is thumbnail
+
+            foreach (var image in product.ProductImages)
+            {
+                image.IsThumbnail = false;
+            }
+
+            //Remove images if needed
+
+            if (productCommand.RemoveImageIds?.Any() == true)
+            {
+                var imageToRemove = product.ProductImages.Where(pi => productCommand.RemoveImageIds.Contains(pi.Id)).ToList();
+
+                _unitOfWork.ProductImages.RemoveRange(imageToRemove);
+            }
+
+            if (productCommand.ProductImages != null && productCommand.ProductImages.Count > 0)
+            {
+                List<string>? imageUrls = await _cloudinaryService.UploadImages(productCommand.ProductImages, "products");
+
+                if (imageUrls == null || imageUrls.Count == 0)
+                {
+                    throw new Exception("Failed to upload product images.");
+                }
+
+                var newImages = imageUrls.Select((url, index) => new ProductImage
+                {
+                    ProductId = productCommand.Id,
+                    ColorId = productCommand.ColorId,
+                    ImageUrl = url,
+                    IsThumbnail = index == productCommand.ThumbnailIndex
+                }).ToList();
+
+
+                _unitOfWork.ProductImages.AddRange(newImages);
+            }
+
+            await _unitOfWork.CompleteAsync();
+
+
+            return _mapper.Map<ProductDto>(product);
+        }
+
+        public async Task DeleteProductAsync(Guid id)
+        {
+            var product = await _unitOfWork.Products.GetByIdAsync(id);
+
+            if (product == null)
+            {
+                throw new Exception("Product not found");
+            }
+
+            _unitOfWork.Products.Remove(product);
+            await _unitOfWork.CompleteAsync();
         }
     }
 }

@@ -31,7 +31,7 @@ namespace RetailSystem.Application.Services
             return _mapper.Map<List<CategoryDto>>(categories);
         }
 
-        public async Task UpdateCategoryAsync(UpdateCategoryCommand command)
+        public async Task<CategoryDto> UpdateCategoryAsync(UpdateCategoryCommand command)
         {
             var category = await _unitOfWork.Categories.GetByIdAsync(command.Id);
 
@@ -42,6 +42,8 @@ namespace RetailSystem.Application.Services
 
             category.CategoryName = command.CategoryName;
             await _unitOfWork.CompleteAsync();
+
+            return _mapper.Map<CategoryDto>(category);
         }
 
         public async Task DeleteCategoryAsync(Guid id)
