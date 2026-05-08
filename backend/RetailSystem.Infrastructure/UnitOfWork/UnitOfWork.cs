@@ -11,21 +11,26 @@ namespace RetailSystem.Infrastructure.UnitOfWork
         public ICategoryRepository Categories { get; }
         public IProductImageRepository ProductImages { get; }
         public IProductVariantRepository ProductVariants { get; }
+        public ISizeRepository Sizes { get; }
+        public IColorRepository Colors { get; }
 
         public UnitOfWork(
             RetailSystemDbContext context,
             IProductRepository productRepository,
             ICategoryRepository categoryRepository,
             IProductImageRepository productImageRepository,
-            IProductVariantRepository productVariants
-
+            IProductVariantRepository productVariantRepository,
+            ISizeRepository sizeRepository,
+            IColorRepository colorRepository
             )
         {
             _context = context;
             Products = productRepository;
             Categories = categoryRepository;
             ProductImages = productImageRepository;
-            ProductVariants = productVariants;
+            ProductVariants = productVariantRepository;
+            Colors = colorRepository;
+            Sizes = sizeRepository;
         }
 
         public int Complete()

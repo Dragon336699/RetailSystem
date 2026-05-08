@@ -8,6 +8,8 @@ namespace RetailSystem.Application.Interfaces.UnitOfWork
         ICategoryRepository Categories { get; }
         IProductImageRepository ProductImages { get; }
         IProductVariantRepository ProductVariants { get; }
+        ISizeRepository Sizes { get;  }
+        IColorRepository Colors { get;  }
         int Complete();
         Task<int> CompleteAsync();
     }
