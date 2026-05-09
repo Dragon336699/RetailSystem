@@ -23,7 +23,7 @@ namespace RetailSystem.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddNewCategories([FromBody] List<CreateCategoryCommand> request)
+        public async Task<IActionResult> AddNewCategories([FromBody] CreateCategoryCommand request)
         {
             var categoriesAdded = await _categoryService.AddCategoryAsync(request);
             return Ok(categoriesAdded);
@@ -36,8 +36,8 @@ namespace RetailSystem.API.Controllers
             return Ok(categoryUpdated);
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteCategory([FromQuery] Guid id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCategory(Guid id)
         {
             await _categoryService.DeleteCategoryAsync(id);
             return Ok();

@@ -1,5 +1,4 @@
 ﻿using RetailSystem.Application.Dtos.Categories;
-using RetailSystem.Domain.Entities;
 
 namespace RetailSystem.Application.Dtos.Products
 {
@@ -12,7 +11,8 @@ namespace RetailSystem.Application.Dtos.Products
         public string? Description { get; init; }
         public decimal Price { get; init; }
         public decimal RatingAverage { get; init; }
-        public List<ProductImageDto> ProductImages { get; init; }
-        public List<CategoryDto> Categories { get; init; }
+        public List<ProductImageDto> ProductImages { get; init; } = null!;
+        public List<CategoryDto> Categories { get; init; } = null!;
+        public List<ProductVariantDto> ProductVariants { get; init; } = null!;
     }
 }

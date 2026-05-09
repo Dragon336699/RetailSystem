@@ -33,7 +33,8 @@ namespace RetailSystem.Application.Services
             var product = await _unitOfWork.Products.GetWithConditionAndIncludeAsync(
                     p => p.Id == id,
                     p => p.Categories,
-                    p => p.ProductImages
+                    p => p.ProductImages,
+                    p => p.ProductVariants
              );
 
             return product == null ? null : _mapper.Map<ProductDto>(product);

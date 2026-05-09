@@ -21,14 +21,14 @@ namespace RetailSystem.Application.Services
             return _unitOfWork.Categories.GetAll().ToList();
         }
 
-        public async Task<List<CategoryDto>> AddCategoryAsync(List<CreateCategoryCommand> command)
+        public async Task<CategoryDto> AddCategoryAsync(CreateCategoryCommand command)
         {
-            var categories = _mapper.Map<List<Category>>(command);
+            var category = _mapper.Map<Category>(command);
 
-            await _unitOfWork.Categories.AddRangeAsync(categories);
+            await _unitOfWork.Categories.AddAsync(category);
             await _unitOfWork.CompleteAsync();
 
-            return _mapper.Map<List<CategoryDto>>(categories);
+            return _mapper.Map<CategoryDto>(category);
         }
 
         public async Task<CategoryDto> UpdateCategoryAsync(UpdateCategoryCommand command)
@@ -41,6 +41,7 @@ namespace RetailSystem.Application.Services
             }
 
             category.CategoryName = command.CategoryName;
+            category.Description = command.Description;
             await _unitOfWork.CompleteAsync();
 
             return _mapper.Map<CategoryDto>(category);

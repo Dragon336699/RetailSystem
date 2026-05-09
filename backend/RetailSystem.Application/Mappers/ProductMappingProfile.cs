@@ -12,6 +12,7 @@ namespace RetailSystem.Application.Mappers
             CreateMap<Product, ProductDto>();
 
             CreateMap<ProductImage, ProductImageDto>();
+            CreateMap<ProductVariant, ProductVariantDto>();
         }
     }
 }
