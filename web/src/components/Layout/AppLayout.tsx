@@ -1,9 +1,9 @@
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { Avatar, Layout, Menu, type MenuProps } from "antd";
 import {
   BlockOutlined,
-  DashboardOutlined,
   ProductOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import { useState } from "react";
 
@@ -30,19 +30,23 @@ export default function AppLayout() {
 
   const items: MenuItem[] = [
     getItem(
-      <span className="text-left w-100 block">Dashboard</span>,
-      "dashboard",
-      <DashboardOutlined />,
-    ),
-    getItem(
-      <span className="text-left w-100 block">Products</span>,
+      <Link to="/products" className="text-left w-100 block">
+        Products
+      </Link>,
       "product",
       <ProductOutlined />,
     ),
     getItem(
-      <span className="text-left w-100 block">Categories</span>,
+      <Link to="/categories" className="text-left w-100 block">
+        Categories
+      </Link>,
       "categories",
       <BlockOutlined />,
+    ),
+    getItem(
+      <span className="text-left w-100 block">User</span>,
+      "user",
+      <UserOutlined />,
     ),
   ];
 
@@ -85,7 +89,7 @@ export default function AppLayout() {
           </Avatar>
         </Header>
         <Content>
-          <div style={{ padding: 24, minHeight: 360, background: "#fff" }}>
+          <div className="p-[24px] bg-[#fff] h-full">
             <Outlet />
           </div>
         </Content>

@@ -1,17 +1,19 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { Button } from "antd";
-import FilterProduct from "../../features/product/components/FilterProduct";
-import { useCategories } from "../../features/category/hooks/category.hook";
 import { useState } from "react";
-import { useSizes } from "../../features/size/hooks/size.hook";
-import { useColors } from "../../features/color/hooks/color.hook";
+import ProductList from "../../features/product/components/ProductList";
+import { useProducts } from "../../features/product/hooks/product.hook";
 
 export default function Product() {
-  const [filters, setFilters] = useState({});
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
 
-  const { data: categories } = useCategories();
-  const { data: sizes } = useSizes();
-  const { data: colors } = useColors();
+  const { data: products } = useProducts(page, pageSize);
+
+  const changePage = (page: number, pageSize: number) => {
+    setPage(page);
+    setPageSize(pageSize);
+  };
 
   return (
     <>
@@ -27,13 +29,8 @@ export default function Product() {
           <PlusOutlined /> Add Product
         </Button>
       </div>
-      <FilterProduct
-        filters={filters}
-        setFilters={setFilters}
-        categories={categories ?? []}
-        sizes={sizes ?? []}
-        colors={colors ?? []}
-      />
+      <br />
+      <ProductList products={products ?? []} page={page} pageSize={pageSize} changePage={changePage} />
     </>
   );
 }
