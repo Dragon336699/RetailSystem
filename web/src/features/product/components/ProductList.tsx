@@ -4,8 +4,8 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 type ProductListProps = {
   products: Product[];
-  page: number,
-  pageSize: number,
+  page: number;
+  pageSize: number;
   changePage: (page: number, pageSize: number) => void;
 };
 
@@ -19,7 +19,12 @@ interface DataType {
   action: React.ReactNode;
 }
 
-export default function ProductList({ products, page, pageSize, changePage }: ProductListProps) {
+export default function ProductList({
+  products,
+  page,
+  pageSize,
+  changePage,
+}: ProductListProps) {
   const dataSource: DataType[] = products.map((product) => ({
     key: product.id,
     image: product.productImages.find((img) => img.isThumbnail)?.imageUrl || "",
@@ -30,10 +35,16 @@ export default function ProductList({ products, page, pageSize, changePage }: Pr
       (sum, variant) => sum + variant.stockQuantity,
       0,
     ),
-    action: <div className="flex gap-4">
-        <EditOutlined className="text-lg cursor-pointer"/>
-        <DeleteOutlined className="text-lg cursor-pointer"/>
-    </div>,
+    createdAt: product.createdAt,
+    updatedAt: product.updatedAt,
+    action: (
+      <div className="flex gap-4">
+        <EditOutlined className="text-lg cursor-pointer" />
+        <span className="text-lg cursor-pointer text-red-500">
+          <DeleteOutlined />
+        </span>
+      </div>
+    ),
   }));
 
   const columns: TableProps<DataType>["columns"] = [
@@ -95,6 +106,24 @@ export default function ProductList({ products, page, pageSize, changePage }: Pr
       ),
     },
     {
+      title: "Created At",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      render: (value) => {
+        const date = new Date(value);
+        return <span>{date.toLocaleString("vi-VN")}</span>;
+      },
+    },
+    {
+      title: "Updated At",
+      dataIndex: "updatedAt",
+      key: "updatedAt",
+      render: (value) => {
+        const date = new Date(value);
+        return <span>{date.toLocaleString("vi-VN")}</span>;
+      },
+    },
+    {
       title: "Action",
       dataIndex: "action",
       key: "action",
@@ -103,6 +132,7 @@ export default function ProductList({ products, page, pageSize, changePage }: Pr
   return (
     <>
       <Table<DataType>
+        rowKey="id"
         dataSource={dataSource}
         columns={columns}
         pagination={{ placement: [] }}
@@ -113,7 +143,7 @@ export default function ProductList({ products, page, pageSize, changePage }: Pr
         pageSize={pageSize}
         align="end"
         onChange={(newPage, newPageSize) => {
-            changePage(newPage, newPageSize);
+          changePage(newPage, newPageSize);
         }}
       />
     </>

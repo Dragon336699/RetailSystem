@@ -4,6 +4,8 @@ export interface Product {
     id: string;
     productName: string;
     price: number;
+    createdAt: Date;
+    updatedAt: Date;
     categories: Category[];
     productImages: ProductImage[];
     productVariants: ProductVariant[];
