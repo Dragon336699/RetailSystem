@@ -19,11 +19,9 @@ namespace RetailSystem.API.Configs
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IProductImageRepository, ProductImageRepository>();
             services.AddScoped<IProductVariantRepository, ProductVariantRepository>();
-            services.AddScoped<IColorRepository, ColorRepository>();
             services.AddScoped<ISizeRepository, SizeRepository>();
 
             services.AddScoped<ISizeService, SizeService>();
-            services.AddScoped<IColorService, ColorService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ICloudinaryService, CloudinaryService>();

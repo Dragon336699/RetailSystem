@@ -12,7 +12,6 @@ namespace RetailSystem.Infrastructure.UnitOfWork
         public IProductImageRepository ProductImages { get; }
         public IProductVariantRepository ProductVariants { get; }
         public ISizeRepository Sizes { get; }
-        public IColorRepository Colors { get; }
 
         public UnitOfWork(
             RetailSystemDbContext context,
@@ -20,8 +19,7 @@ namespace RetailSystem.Infrastructure.UnitOfWork
             ICategoryRepository categoryRepository,
             IProductImageRepository productImageRepository,
             IProductVariantRepository productVariantRepository,
-            ISizeRepository sizeRepository,
-            IColorRepository colorRepository
+            ISizeRepository sizeRepository
             )
         {
             _context = context;
@@ -29,7 +27,6 @@ namespace RetailSystem.Infrastructure.UnitOfWork
             Categories = categoryRepository;
             ProductImages = productImageRepository;
             ProductVariants = productVariantRepository;
-            Colors = colorRepository;
             Sizes = sizeRepository;
         }
 

@@ -9,7 +9,6 @@ namespace RetailSystem.Application.Interfaces.UnitOfWork
         IProductImageRepository ProductImages { get; }
         IProductVariantRepository ProductVariants { get; }
         ISizeRepository Sizes { get;  }
-        IColorRepository Colors { get;  }
         int Complete();
         Task<int> CompleteAsync();
     }

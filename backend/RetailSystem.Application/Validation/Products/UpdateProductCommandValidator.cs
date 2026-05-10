@@ -13,8 +13,6 @@ namespace RetailSystem.Application.Validation.Products
             RuleFor(p => p.Price)
                 .NotEmpty().WithMessage("Price is required")
                 .GreaterThan(0).WithMessage("Price must be greater than 0.");
-            RuleFor(p => p.ColorId)
-                .NotEmpty().WithMessage("Color is required.");
             RuleFor(p => p.CategoryIds)
                 .NotEmpty().WithMessage("At least one category is required.");
             RuleFor(p => p.ProductImages)

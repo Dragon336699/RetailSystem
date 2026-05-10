@@ -62,14 +62,12 @@ namespace RetailSystem.Application.Services
 
             product.ProductVariants = productCommand.SizesQuantity.Select(sq => new ProductVariant
             {
-                ColorId = productCommand.ColorId,
                 SizeId = sq.SizeId,
                 StockQuantity = sq.Quantity
             }).ToList();
 
             product.ProductImages = imageUrls.Select((url, index) => new ProductImage
             {
-                ColorId = productCommand.ColorId,
                 ImageUrl = url,
                 IsThumbnail = index == productCommand.ThumbnailIndex
             }).ToList();
@@ -120,7 +118,6 @@ namespace RetailSystem.Application.Services
                     _unitOfWork.ProductVariants.Add(new ProductVariant
                     {
                         ProductId = product.Id,
-                        ColorId = productCommand.ColorId,
                         SizeId = req.SizeId,
                         StockQuantity = req.Quantity
                     });
@@ -155,7 +152,6 @@ namespace RetailSystem.Application.Services
                 var newImages = imageUrls.Select((url, index) => new ProductImage
                 {
                     ProductId = productCommand.Id,
-                    ColorId = productCommand.ColorId,
                     ImageUrl = url,
                     IsThumbnail = index == productCommand.ThumbnailIndex
                 }).ToList();

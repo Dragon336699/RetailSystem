@@ -12,7 +12,6 @@ namespace RetailSystem.API.Extensions
             {
                 ProductName = request.ProductName,
                 Price = request.Price,
-                ColorId = request.ColorId,
                 CategoryIds = request.CategoryIds,
                 Description = request.Description,
                 ProductImages = request.ProductImages.Select(file => new ImageUploadDto
@@ -33,7 +32,6 @@ namespace RetailSystem.API.Extensions
                 Id = request.Id,
                 ProductName = request.ProductName,
                 Price = request.Price,
-                ColorId = request.ColorId,
                 Description = request.Description,
                 CategoryIds = request.CategoryIds,
                 ProductImages = request.ProductImages.Select(file => new ImageUploadDto
