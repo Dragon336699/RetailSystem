@@ -56,6 +56,7 @@ namespace RetailSystem.Application.Services
             {
                 ProductName = productCommand.ProductName,
                 Price = productCommand.Price,
+                Description = productCommand.Description,
                 Categories = categories
             };
 
@@ -100,6 +101,7 @@ namespace RetailSystem.Application.Services
             //Update product properties
             product.ProductName = productCommand.ProductName;
             product.Price = productCommand.Price;
+            product.Description = productCommand.Description;
 
             product.Categories = categories;
 
