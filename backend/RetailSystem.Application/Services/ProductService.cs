@@ -34,6 +34,12 @@ namespace RetailSystem.Application.Services
             return _mapper.Map<List<ProductDto>>(products);
         }
 
+        public async Task<List<ProductDto>> GetFilteredProducts(Guid categoryId, int skip = 0, int take = 10)
+        {
+            var products = await _unitOfWork.Products.GetFilteredProduct(categoryId, skip, take);
+            return _mapper.Map<List<ProductDto>>(products);
+        }
+
         public async Task<ProductDto?> GetProductByIdAsync(Guid id)
         {
             var product = await _unitOfWork.Products.GetWithConditionAndIncludeAsync(

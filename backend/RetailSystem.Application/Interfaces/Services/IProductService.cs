@@ -6,6 +6,7 @@ namespace RetailSystem.Application.Interfaces.Services
     {
         Task<List<ProductDto>> GetFeatureProductsAsync();
         Task<List<ProductDto>> GetProductsAsync(int skip = 0, int take = 10);
+        Task<List<ProductDto>> GetFilteredProducts(Guid categoryId, int skip = 0, int take = 10);
         Task<ProductDto?> GetProductByIdAsync(Guid id);
         Task<ProductDto> AddProductAsync(CreateProductCommand product);
         Task<ProductDto> UpdateProductAsync(UpdateProductCommand product);

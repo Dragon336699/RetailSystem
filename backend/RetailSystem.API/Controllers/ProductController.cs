@@ -24,13 +24,21 @@ namespace RetailSystem.API.Controllers
         }
 
         [HttpGet]
-        [Route("/{id:guid}")]
+        [Route("{id:guid}")]
         public async Task<IActionResult> GetProductById(Guid id)
         {
             var product = await _productService.GetProductByIdAsync(id);
             if (product == null)
                 return NotFound();
             return Ok(product);
+        }
+
+        [HttpGet]
+        [Route("filter")]
+        public async Task<IActionResult> GetFilteredProducts(Guid categoryId, int skip = 0, int take = 10)
+        {
+            var products = await _productService.GetFilteredProducts(categoryId, skip, take);
+            return Ok(products);
         }
 
         [HttpPost]

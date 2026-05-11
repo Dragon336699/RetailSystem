@@ -9,6 +9,7 @@ namespace RetailSystem.UI.Config
         {
             services.AddScoped<IProductApiClient, ProductApiClient>();
             services.AddScoped<ICategoryApiClient, CategoryApiClient>();
+            services.AddScoped<ISizeApiClient, SizeApiClient>();
         }
     }
 }

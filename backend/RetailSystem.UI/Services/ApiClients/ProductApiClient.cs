@@ -11,9 +11,19 @@ namespace RetailSystem.UI.Services.ApiClients
             _httpClient = factory.CreateClient("ApiClient"); ;
         }
 
-        public async Task<List<ProductDto>> GetFeatureProducts()
+        public async Task<List<ProductDto>> GetAllProductsAsync()
         {
             return await _httpClient.GetFromJsonAsync<List<ProductDto>>("products");
+        }
+
+        public async Task<List<ProductDto>> GetFeatureProducts()
+        {
+            return await _httpClient.GetFromJsonAsync<List<ProductDto>>("products?skip=0&take=4");
+        }
+
+        public async Task<ProductDto> GetProductByIdAsync(Guid id)
+        {
+            return await _httpClient.GetFromJsonAsync<ProductDto>($"products/{id}");
         }
     }
 }

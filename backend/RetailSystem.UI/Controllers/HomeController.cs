@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using RetailSystem.Application.Interfaces.Services;
 using RetailSystem.SharedLibrary.Dtos.Categories;
 using RetailSystem.SharedLibrary.Dtos.Products;
 using RetailSystem.UI.Models;

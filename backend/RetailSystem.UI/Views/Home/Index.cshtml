@@ -5,7 +5,7 @@
     ViewData["Title"] = "Retail System";
 }
 
-<div class="mb-4">
+@* <div class="mb-4">
     <div class="d-flex gap-2 flex-wrap">
         <a href="/products" class="btn btn-dark btn-sm rounded-pill px-3">All</a>
         @foreach (var category in Model.Categories)
@@ -16,7 +16,7 @@
             </a>
         }
     </div>
-</div>
+</div> *@
 
 <div class="row g-3 mb-4">
     @foreach (var product in Model.FeatureProducts)
@@ -27,7 +27,7 @@
                style="cursor: pointer;">
 
                 <div class="card h-100 border-0 shadow-sm">
-                    <img src="@product.ProductImages[0].ImageUrl"
+                    <img src="@product.ProductImages.FirstOrDefault(pi => pi.IsThumbnail).ImageUrl"
                          alt="@product.ProductName"
                          class="card-img-top object-fit-cover"
                          style="aspect-ratio: 1/1;" />
