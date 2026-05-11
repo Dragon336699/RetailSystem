@@ -1,4 +1,4 @@
-﻿using RetailSystem.Application.Dtos.Sizes;
+﻿using RetailSystem.SharedLibrary.Dtos.Sizes;
 
 namespace RetailSystem.Application.Interfaces.Services
 {

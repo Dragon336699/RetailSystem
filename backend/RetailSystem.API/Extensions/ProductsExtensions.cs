@@ -1,6 +1,6 @@
 ﻿using RetailSystem.API.Contracts.Products;
-using RetailSystem.Application.Dtos.ImagesUpload;
-using RetailSystem.Application.Dtos.Products;
+using RetailSystem.SharedLibrary.Dtos.ImagesUpload;
+using RetailSystem.SharedLibrary.Dtos.Products;
 
 namespace RetailSystem.API.Extensions
 {

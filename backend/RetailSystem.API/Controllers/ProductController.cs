@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RetailSystem.API.Contracts.Products;
 using RetailSystem.API.Extensions;
-using RetailSystem.Application.Dtos.Products;
+using RetailSystem.SharedLibrary.Dtos.Products;
 using RetailSystem.Application.Interfaces.Services;
 
 namespace RetailSystem.API.Controllers

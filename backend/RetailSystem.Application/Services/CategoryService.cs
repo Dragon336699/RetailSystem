@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using RetailSystem.Application.Dtos.Categories;
+using RetailSystem.SharedLibrary.Dtos.Categories;
 using RetailSystem.Application.Interfaces.Services;
 using RetailSystem.Application.Interfaces.UnitOfWork;
 using RetailSystem.Domain.Entities;
@@ -16,9 +16,10 @@ namespace RetailSystem.Application.Services
             _mapper = mapper;
         }
 
-        public List<Category> GetAllCategories()
+        public async Task<IEnumerable<CategoryDto>> GetAllCategoriesAsync()
         {
-            return _unitOfWork.Categories.GetAll().ToList();
+            IEnumerable<Category> category = await _unitOfWork.Categories.GetAllAsync();
+            return _mapper.Map<IEnumerable<CategoryDto>>(category);
         }
 
         public async Task<CategoryDto> AddCategoryAsync(CreateCategoryCommand command)

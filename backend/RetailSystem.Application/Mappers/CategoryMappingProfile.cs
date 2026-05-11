@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using RetailSystem.Application.Dtos.Categories;
+using RetailSystem.SharedLibrary.Dtos.Categories;
 using RetailSystem.Domain.Entities;
 
 namespace RetailSystem.Application.Mappers

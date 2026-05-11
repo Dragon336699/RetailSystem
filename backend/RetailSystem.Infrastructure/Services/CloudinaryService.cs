@@ -1,7 +1,7 @@
 ﻿using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Microsoft.Extensions.Configuration;
-using RetailSystem.Application.Dtos.ImagesUpload;
+using RetailSystem.SharedLibrary.Dtos.ImagesUpload;
 using RetailSystem.Application.Interfaces.Services;
 
 namespace RetailSystem.Infrastructure.Services

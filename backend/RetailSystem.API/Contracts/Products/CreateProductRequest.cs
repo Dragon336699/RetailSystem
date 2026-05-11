@@ -1,4 +1,4 @@
-﻿using RetailSystem.Application.Dtos.Products;
+﻿using RetailSystem.SharedLibrary.Dtos.Products;
 
 namespace RetailSystem.API.Contracts.Products
 {

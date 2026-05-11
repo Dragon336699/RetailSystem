@@ -1,4 +1,4 @@
-﻿using RetailSystem.Application.Dtos.ImagesUpload;
+﻿using RetailSystem.SharedLibrary.Dtos.ImagesUpload;
 
 namespace RetailSystem.Application.Interfaces.Services
 {

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using RetailSystem.Application.Common.Validators;
-using RetailSystem.Application.Dtos.Products;
+using RetailSystem.SharedLibrary.Dtos.Products;
 using RetailSystem.Application.Interfaces.Services;
 using RetailSystem.Application.Interfaces.UnitOfWork;
 using RetailSystem.Domain.Entities;
@@ -20,6 +20,12 @@ namespace RetailSystem.Application.Services
             _serviceProvider = serviceProvider;
             _mapper = mapper;
             _cloudinaryService = cloudinaryService;
+        }
+
+        public async Task<List<ProductDto>> GetFeatureProductsAsync()
+        {
+            var products = await _unitOfWork.Products.GetProductsAsync(0, 4);
+            return _mapper.Map<List<ProductDto>>(products);
         }
 
         public async Task<List<ProductDto>> GetProductsAsync(int skip = 0, int take = 10)

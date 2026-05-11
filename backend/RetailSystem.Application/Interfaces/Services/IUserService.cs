@@ -1,4 +1,4 @@
-﻿using RetailSystem.Application.Dtos.Users;
+﻿using RetailSystem.SharedLibrary.Dtos.Users;
 
 namespace RetailSystem.Application.Interfaces.Services
 {

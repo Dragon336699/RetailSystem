@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RetailSystem.Domain\RetailSystem.Domain.csproj" />
+    <ProjectReference Include="..\RetailSystem.SharedLibrary\RetailSystem.SharedLibrary.csproj" />
   </ItemGroup>
 
 </Project>

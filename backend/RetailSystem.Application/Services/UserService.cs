@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
-using RetailSystem.Application.Dtos.Users;
+using RetailSystem.SharedLibrary.Dtos.Users;
 using RetailSystem.Application.Interfaces.Services;
 using RetailSystem.Application.Interfaces.UnitOfWork;
 using RetailSystem.Domain.Entities;

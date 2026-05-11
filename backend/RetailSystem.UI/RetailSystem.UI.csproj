@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\Product\" />
+    <Folder Include="Views\Product\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RetailSystem.Application\RetailSystem.Application.csproj" />
+    <ProjectReference Include="..\RetailSystem.Infrastructure\RetailSystem.Infrastructure.csproj" />
+    <ProjectReference Include="..\RetailSystem.SharedLibrary\RetailSystem.SharedLibrary.csproj" />
+  </ItemGroup>
+
+</Project>

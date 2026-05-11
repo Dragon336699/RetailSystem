@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RetailSystem.Application.Dtos.Categories;
+using RetailSystem.SharedLibrary.Dtos.Categories;
 using RetailSystem.Application.Interfaces.Services;
 using System.Threading.Tasks;
 
@@ -16,9 +16,9 @@ namespace RetailSystem.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllCategories()
+        public async Task<IActionResult> GetAllCategories()
         {
-            var categories = _categoryService.GetAllCategories();
+            var categories = await _categoryService.GetAllCategoriesAsync();
             return Ok(categories);
         }
 
