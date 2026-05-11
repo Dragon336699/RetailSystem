@@ -1,11 +1,14 @@
 import { Badge, Pagination, Table, type TableProps } from "antd";
 import type { Product } from "../types/product";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import GenericPopConfirm from "../../../components/Modal/GenericPopConfirm";
 
 type ProductListProps = {
   products: Product[];
   page: number;
   pageSize: number;
+  openUpdateProduct: (product: Product) => void;
+  onDeleteProduct: (productId: string) => void;
   changePage: (page: number, pageSize: number) => void;
 };
 
@@ -23,6 +26,8 @@ export default function ProductList({
   products,
   page,
   pageSize,
+  openUpdateProduct,
+  onDeleteProduct,
   changePage,
 }: ProductListProps) {
   const dataSource: DataType[] = products.map((product) => ({
@@ -39,9 +44,18 @@ export default function ProductList({
     updatedAt: product.updatedAt,
     action: (
       <div className="flex gap-4">
-        <EditOutlined className="text-lg cursor-pointer" />
-        <span className="text-lg cursor-pointer text-red-500">
-          <DeleteOutlined />
+        <EditOutlined
+          onClick={() => openUpdateProduct(product)}
+          className="text-lg cursor-pointer"
+        />
+        <span className="text-red-500 text-lg cursor-pointer">
+          <GenericPopConfirm
+            title="Delete"
+            description={`Are you sure to delete category "${product.productName}"?`}
+            onConfirm={() => onDeleteProduct(product.id)}
+          >
+            <DeleteOutlined />
+          </GenericPopConfirm>
         </span>
       </div>
     ),
