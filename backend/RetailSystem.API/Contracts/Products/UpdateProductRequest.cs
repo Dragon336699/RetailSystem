@@ -9,9 +9,10 @@ namespace RetailSystem.API.Contracts.Products
         public decimal Price { get; init; }
         public string? Description { get; init; }
         public required List<Guid> CategoryIds { get; init; }
-        public required List<IFormFile> ProductImages { get; init; }
+        public List<IFormFile>? ProductImages { get; init; }
         public List<Guid>? RemoveImageIds { get; init; }
-        public int ThumbnailIndex { get; init; }
+        public Guid? ThumbnailImageId { get; init; }
+        public int? ThumbnailIndex { get; init; }
         public required List<UploadProductSizeDto> SizesQuantity { get; init; }
     }
 }

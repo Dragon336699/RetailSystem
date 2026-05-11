@@ -34,13 +34,14 @@ namespace RetailSystem.API.Extensions
                 Price = request.Price,
                 Description = request.Description,
                 CategoryIds = request.CategoryIds,
-                ProductImages = request.ProductImages.Select(file => new ImageUploadDto
+                ProductImages = request.ProductImages?.Select(file => new ImageUploadDto
                 {
                     FileName = file.FileName,
                     Content = file.OpenReadStream(),
                     ContentType = file.ContentType
                 }).ToList(),
                 RemoveImageIds = request.RemoveImageIds,
+                ThumbnailImageId = request.ThumbnailImageId,
                 ThumbnailIndex = request.ThumbnailIndex,
                 SizesQuantity = request.SizesQuantity
             };

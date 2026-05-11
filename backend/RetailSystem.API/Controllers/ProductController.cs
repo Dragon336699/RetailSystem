@@ -51,7 +51,7 @@ namespace RetailSystem.API.Controllers
             return Ok(productAdded);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(Guid id)
         {
             await _productService.DeleteProductAsync(id);

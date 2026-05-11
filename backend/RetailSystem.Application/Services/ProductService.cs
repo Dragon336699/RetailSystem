@@ -124,13 +124,6 @@ namespace RetailSystem.Application.Services
                 }
             }
 
-            //Clear is thumbnail
-
-            foreach (var image in product.ProductImages)
-            {
-                image.IsThumbnail = false;
-            }
-
             //Remove images if needed
 
             if (productCommand.RemoveImageIds?.Any() == true)
@@ -138,6 +131,27 @@ namespace RetailSystem.Application.Services
                 var imageToRemove = product.ProductImages.Where(pi => productCommand.RemoveImageIds.Contains(pi.Id)).ToList();
 
                 _unitOfWork.ProductImages.RemoveRange(imageToRemove);
+            }
+
+            //Clear is thumbnail
+
+            if (productCommand.ThumbnailImageId != null || productCommand.ThumbnailIndex != null)
+            {
+                foreach (var image in product.ProductImages)
+                {
+                    image.IsThumbnail = false;
+                }
+            }
+
+            if (productCommand.ThumbnailImageId != null)
+            {
+                var thumb = product.ProductImages
+                    .FirstOrDefault(x => x.Id == productCommand.ThumbnailImageId);
+
+                if (thumb != null)
+                {
+                    thumb.IsThumbnail = true;
+                }
             }
 
             if (productCommand.ProductImages != null && productCommand.ProductImages.Count > 0)
