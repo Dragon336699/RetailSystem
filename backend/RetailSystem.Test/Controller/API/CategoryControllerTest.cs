@@ -4,7 +4,7 @@ using RetailSystem.Application.Interfaces.Services;
 using RetailSystem.SharedLibrary.Dtos.Categories;
 using Microsoft.AspNetCore.Mvc;
 
-namespace RetailSystem.Test.Controller
+namespace RetailSystem.Test.Controller.API
 {
     public class CategoryControllerTest
     {

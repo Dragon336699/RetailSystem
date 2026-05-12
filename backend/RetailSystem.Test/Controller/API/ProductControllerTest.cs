@@ -6,7 +6,7 @@ using RetailSystem.API.Contracts.Products;
 using RetailSystem.Application.Interfaces.Services;
 using RetailSystem.SharedLibrary.Dtos.Products;
 
-namespace RetailSystem.Test.Controller
+namespace RetailSystem.Test.Controller.API
 {
     public class ProductControllerTest
     {

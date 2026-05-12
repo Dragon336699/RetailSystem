@@ -4,7 +4,7 @@ using RetailSystem.API.Controllers;
 using RetailSystem.Application.Interfaces.Services;
 using RetailSystem.SharedLibrary.Dtos.Sizes;
 
-namespace RetailSystem.Test.Controller
+namespace RetailSystem.Test.Controller.API
 {
     public class SizeControllerTest
     {

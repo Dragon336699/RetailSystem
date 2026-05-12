@@ -222,6 +222,9 @@ namespace RetailSystem.Test.Services
             _mockProductRepo.Setup(r => r.GetByIdAsync(id)).ReturnsAsync((Product?)null);
 
             await Assert.ThrowsAsync<Exception>(() => _service.DeleteProductAsync(id));
+
+            _mockProductRepo.Verify(r => r.Remove(It.IsAny<Product>()), Times.Never);
+            _mockUnitOfWork.Verify(u => u.CompleteAsync(), Times.Never);
         }
 
         [Fact]

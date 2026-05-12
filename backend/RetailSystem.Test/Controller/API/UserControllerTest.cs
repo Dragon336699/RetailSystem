@@ -10,7 +10,7 @@ using RetailSystem.Application.Interfaces.Services;
 using RetailSystem.SharedLibrary.Dtos.Users;
 using Xunit;
 
-namespace RetailSystem.Test.Controller
+namespace RetailSystem.Test.Controller.API
 {
     public class UserControllerTest
     {
