@@ -1,77 +1,118 @@
 ﻿@using RetailSystem.UI.Models.Product;
 @model AllProductViewModel
 
-<div class="mb-4">
-    <div class="d-flex gap-2 flex-wrap">
-        <button onclick="filterAll(this)" class="cat-btn active">All</button>
-        @foreach (var category in Model.Categories)
-        {
-            <button onclick="filterByCategory(this, '@category.Id')" class="cat-btn">
-                @category.CategoryName
-            </button>
-        }
-    </div>
-</div>
+<div class="shop-layout">
 
-<div id="product-list" class="product-grid">
-    @foreach (var product in Model.Products)
-    {
-        <a href="@Url.Action("Detail", "Product", new { id = product.Id })"
-           class="pcard-link">
-            <div class="pcard">
-                <div class="pcard-img-wrapper">
-                    <img src="@product.ProductImages.FirstOrDefault(pi => pi.IsThumbnail).ImageUrl"
-                         alt="@product.ProductName" />
-                </div>
-                <div class="pcard-body">
-                    <h6 class="pcard-name">@product.ProductName</h6>
-                    @if (!string.IsNullOrEmpty(product.Description))
-                    {
-                        <p class="pcard-desc">@product.Description</p>
-                    }
-                    <p class="pcard-price">@product.Price.ToString("C")</p>
-                </div>
-            </div>
-        </a>
-    }
+    <!-- LEFT FILTER (ONLY CATEGORY - NO NEW FILTER TYPES) -->
+    <aside class="sidebar">
+        <div class="d-flex flex-column gap-2">
+            <button onclick="filterAll(this)" class="cat-btn active">All</button>
+            @foreach (var category in Model.Categories)
+            {
+                <button onclick="filterByCategory(this, '@category.Id')" class="cat-btn">
+                    @category.CategoryName
+                </button>
+            }
+        </div>
+    </aside>
+
+    <!-- PRODUCT GRID -->
+    <main class="content">
+        <div id="product-list" class="product-grid">
+            @foreach (var product in Model.Products)
+            {
+                <a href="@Url.Action("Detail", "Product", new { id = product.Id })"
+                   class="pcard-link">
+                    <div class="pcard">
+                        <div class="pcard-img-wrapper">
+                            <img src="@product.ProductImages.FirstOrDefault(pi => pi.IsThumbnail).ImageUrl"
+                                 alt="@product.ProductName" />
+                        </div>
+                        <div class="pcard-body">
+                            <h6 class="pcard-name">@product.ProductName</h6>
+                            @if (!string.IsNullOrEmpty(product.Description))
+                            {
+                                <p class="pcard-desc">@product.Description</p>
+                            }
+                            <p class="pcard-price">@product.Price.ToString("C")</p>
+                        </div>
+                    </div>
+                </a>
+            }
+        </div>
+    </main>
 </div>
 
 <style>
+    /* ───────── LAYOUT ───────── */
+    .shop-layout {
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        gap: 28px;
+        align-items: start;
+    }
+
+    @@media (max-width: 900px) {
+        .shop-layout {
+            grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            padding-bottom: 10px;
+        }
+    }
+
+    /* ───────── SIDEBAR CATEGORY ───────── */
+    .sidebar {
+        position: sticky;
+        top: 20px;
+    }
+
     .cat-btn {
-        border: 1px solid #dee2e6;
-        background: #fff;
-        color: #6c757d;
-        border-radius: 999px;
-        padding: 6px 18px;
-        font-size: 13px;
-        cursor: pointer;
-        transition: background 0.15s, color 0.15s, border-color 0.15s;
+        width: 100%;
+        text-align: left;
+        border: none;
+        background: transparent;
+        color: #666;
+        padding: 10px 12px;
+        border-radius: 10px;
+        font-size: 14px;
+        transition: 0.2s ease;
     }
 
         .cat-btn:hover {
-            background: #f8f9fa;
-            color: #212529;
+            background: #f3f3f3;
+            color: #111;
         }
 
         .cat-btn.active {
-            background: #212529;
+            background: #111;
             color: #fff;
-            border-color: #212529;
         }
 
+    /* ───────── PRODUCT GRID ───────── */
     .product-grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 16px;
-        margin-bottom: 2rem;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 26px;
     }
 
-    @@media (max-width: 768px) {
+    @@media (max-width: 900px) {
         .product-grid {
             grid-template-columns: repeat(2, 1fr);
         }
     }
 
+    @@media (max-width: 540px) {
+        .product-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* ───────── CARD STYLE (MATCH MODERN LOOK) ───────── */
     .pcard-link {
         text-decoration: none;
         color: inherit;
@@ -80,37 +121,44 @@
 
     .pcard {
         background: #fff;
-        border-radius: 14px;
-        border: 1px solid #f0f0f0;
+        border-radius: 18px;
         overflow: hidden;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        transition: 0.25s ease;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.06);
     }
 
         .pcard:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 28px rgba(0,0,0,0.10);
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.12);
         }
 
-    .pcard-img-wrapper img {
-        width: 100%;
-        aspect-ratio: 1/1;
-        object-fit: cover;
-        display: block;
-        transition: transform 0.3s ease;
+    /* IMAGE */
+    .pcard-img-wrapper {
+        background: #f5f5f5;
+        padding: 16px;
     }
+
+        .pcard-img-wrapper img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: contain;
+            transition: transform 0.35s ease;
+        }
 
     .pcard:hover .pcard-img-wrapper img {
-        transform: scale(1.04);
+        transform: scale(1.06);
     }
 
+    /* BODY */
     .pcard-body {
-        padding: 10px 14px 14px;
+        padding: 14px 16px 18px;
     }
 
     .pcard-name {
-        font-size: 14px;
+        font-size: 15px;
         font-weight: 600;
-        margin: 0 0 4px;
+        margin: 0 0 6px;
+        color: #111;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -118,19 +166,18 @@
 
     .pcard-desc {
         font-size: 12px;
-        color: #6c757d;
-        margin: 0 0 8px;
+        color: #888;
+        margin: 0 0 10px;
         display: -webkit-box;
-        -webkit-line-clamp: 2;
+        -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
         overflow: hidden;
-        line-height: 1.5;
     }
 
     .pcard-price {
         font-size: 15px;
         font-weight: 700;
-        color: #0d6efd;
+        color: #111;
         margin: 0;
     }
 </style>
@@ -152,8 +199,8 @@
             const desc = p.description ? p.description : '';
 
             const price = p.price
-    ? p.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
-    : '';
+                ? p.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+                : '';
 
             return `
                 <a href="/products/detail/${p.id}" class="pcard-link">
@@ -178,15 +225,12 @@
         try {
             const res = await fetch(`${API_BASE}/products/filter?categoryId=${categoryId}`);
 
-            if (!res.ok) {
-                console.error("API error:", res.status);
-                return;
-            }
+            if (!res.ok) return;
 
             const data = await res.json();
             renderProducts(data);
         } catch (err) {
-            console.error("Fetch error:", err);
+            console.error(err);
         }
     }
 
@@ -196,15 +240,12 @@
         try {
             const res = await fetch(`${API_BASE}/products`);
 
-            if (!res.ok) {
-                console.error("API error:", res.status);
-                return;
-            }
+            if (!res.ok) return;
 
             const data = await res.json();
             renderProducts(data);
         } catch (err) {
-            console.error("Fetch error:", err);
+            console.error(err);
         }
     }
 </script>
