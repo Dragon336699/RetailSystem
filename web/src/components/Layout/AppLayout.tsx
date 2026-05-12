@@ -44,8 +44,10 @@ export default function AppLayout() {
       <BlockOutlined />,
     ),
     getItem(
-      <span className="text-left w-100 block">User</span>,
-      "user",
+      <Link to="/customers" className="text-left w-100 block">
+        Customers
+      </Link>,
+      "customers",
       <UserOutlined />,
     ),
   ];
