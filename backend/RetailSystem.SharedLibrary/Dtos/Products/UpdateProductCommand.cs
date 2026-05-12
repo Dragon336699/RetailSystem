@@ -2,7 +2,7 @@
 
 namespace RetailSystem.SharedLibrary.Dtos.Products
 {
-    public class UpdateProductCommand
+    public record UpdateProductCommand
     {
         public Guid Id { get; init; }
         public required string ProductName { get; init; }

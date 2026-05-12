@@ -1,6 +1,6 @@
 ﻿namespace RetailSystem.SharedLibrary.Dtos.Users
 {
-    public class RegisterCustomerCommand
+    public record RegisterCustomerCommand
     {
         public required string FullName { get; init; }
         public required string UserName { get; init; }

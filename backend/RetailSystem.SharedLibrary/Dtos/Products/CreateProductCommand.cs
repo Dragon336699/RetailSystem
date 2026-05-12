@@ -2,7 +2,7 @@
 
 namespace RetailSystem.SharedLibrary.Dtos.Products
 {
-    public class CreateProductCommand
+    public record CreateProductCommand
     {
         public required string ProductName { get; init; }
         public decimal Price { get; init; }
