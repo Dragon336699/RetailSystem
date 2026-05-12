@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using RetailSystem.API.Common.Middlewares;
 using RetailSystem.API.Configs;
 using RetailSystem.Infrastructure.Data;
+using RetailSystem.Infrastructure.Persistence.Seed;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +37,12 @@ app.UseCors(options => options
     .AllowAnyMethod()
     .AllowCredentials()
 );
+
+using (var scope = app.Services.CreateScope())
+{
+    var seeder = scope.ServiceProvider.GetRequiredService<RoleSeeder>();
+    await seeder.SeedRolesAsync();
+}
 
 app.UseMiddleware<ExceptionMiddleware>();
 

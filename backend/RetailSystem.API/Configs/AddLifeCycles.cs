@@ -3,6 +3,7 @@ using RetailSystem.Application.Interfaces.Services;
 using RetailSystem.Application.Interfaces.UnitOfWork;
 using RetailSystem.Application.Mappers;
 using RetailSystem.Application.Services;
+using RetailSystem.Infrastructure.Persistence.Seed;
 using RetailSystem.Infrastructure.Repositories;
 using RetailSystem.Infrastructure.Services;
 using RetailSystem.Infrastructure.UnitOfWork;
@@ -24,10 +25,12 @@ namespace RetailSystem.API.Configs
             services.AddScoped<ISizeService, SizeService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICloudinaryService, CloudinaryService>();
 
             //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddAutoMapper(typeof(ProductMappingProfile));
+            services.AddScoped<RoleSeeder>();
         }
     }
 }
