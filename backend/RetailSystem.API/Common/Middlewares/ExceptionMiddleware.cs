@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using RetailSystem.SharedLibrary.Exceptions;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
 
 namespace RetailSystem.API.Common.Middlewares
@@ -33,6 +34,7 @@ namespace RetailSystem.API.Common.Middlewares
                 ValidationException => (StatusCodes.Status400BadRequest, exception.Message),
                 KeyNotFoundException => (StatusCodes.Status404NotFound, exception.Message),
                 UnauthorizedAccessException => (StatusCodes.Status401Unauthorized, exception.Message),
+                UnauthorizeException => (StatusCodes.Status401Unauthorized, exception.Message),
                 _ => (StatusCodes.Status500InternalServerError, "An unexpected error occurred.")
             };
 

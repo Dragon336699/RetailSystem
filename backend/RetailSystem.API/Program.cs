@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using RetailSystem.API.Common.Middlewares;
 using RetailSystem.API.Configs;
+using RetailSystem.Application.Interfaces.Seeder;
 using RetailSystem.Infrastructure.Data;
 using RetailSystem.Infrastructure.Persistence.Seed;
 
@@ -40,8 +41,12 @@ app.UseCors(options => options
 
 using (var scope = app.Services.CreateScope())
 {
-    var seeder = scope.ServiceProvider.GetRequiredService<RoleSeeder>();
-    await seeder.SeedRolesAsync();
+    var seeders = scope.ServiceProvider.GetServices<IDataSeeder>();
+
+    foreach (var seeder in seeders)
+    {
+        await seeder.SeedAsync();
+    }
 }
 
 app.UseMiddleware<ExceptionMiddleware>();

@@ -50,10 +50,187 @@ namespace RetailSystem.Test.Services
         }
 
         [Fact]
+        public async Task GetFeatureProductsAsync_ReturnsEmptyList_WhenNoProduct()
+        {
+            _mockProductRepo.Setup(r => r.GetProductsAsync(0, 4)).ReturnsAsync(new List<Product>());
+            _mockMapper.Setup(m => m.Map<List<ProductDto>>(It.IsAny<List<Product>>())).Returns(new List<ProductDto>());
+
+            var result = await _service.GetProductsAsync(0, 4);
+
+            Assert.Empty(result);
+            _mockProductRepo.Verify(r => r.GetProductsAsync(0, 4), Times.Once);
+            _mockMapper.Verify(m => m.Map<List<ProductDto>>(It.IsAny<List<Product>>()), Times.Once);
+        }
+
+        [Fact]
+        public async Task GetFeatureProductsAsync_ReturnsData_WhenProductsExist()
+        {
+            // Arrange
+            var products = new List<Product>
+            {
+                new Product { Id = Guid.NewGuid(), ProductName = "Product 1" },
+                new Product { Id = Guid.NewGuid(), ProductName = "Product 2" }
+            };
+
+            var productDtos = new List<ProductDto>
+            {
+                new ProductDto { Id = products[0].Id, ProductName = "Product 1" },
+                new ProductDto { Id = products[1].Id, ProductName = "Product 2" }
+            };
+
+            _mockUnitOfWork
+                .Setup(u => u.Products.GetProductsAsync(0, 4))
+                .ReturnsAsync(products);
+
+            _mockMapper
+                .Setup(m => m.Map<List<ProductDto>>(products))
+                .Returns(productDtos);
+
+            // Act
+            var result = await _service.GetFeatureProductsAsync();
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(2, result.Count);
+            Assert.Equal("Product 1", result[0].ProductName);
+            Assert.Equal("Product 2", result[1].ProductName);
+
+            _mockUnitOfWork.Verify(u => u.Products.GetProductsAsync(0, 4), Times.Once);
+            _mockMapper.Verify(m => m.Map<List<ProductDto>>(products), Times.Once);
+        }
+
+        [Fact]
+        public async Task GetProductsAsync_ReturnsEmptyList_WhenNoProducts()
+        {
+            // Arrange
+            var products = new List<Product>();
+
+            _mockUnitOfWork
+                .Setup(u => u.Products.GetProductsAsync(0, 10))
+                .ReturnsAsync(products);
+
+            _mockMapper
+                .Setup(m => m.Map<List<ProductDto>>(products))
+                .Returns(new List<ProductDto>());
+
+            // Act
+            var result = await _service.GetProductsAsync(0, 10);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Empty(result);
+
+            _mockUnitOfWork.Verify(u => u.Products.GetProductsAsync(0, 10), Times.Once);
+            _mockMapper.Verify(m => m.Map<List<ProductDto>>(products), Times.Once);
+        }
+
+        [Fact]
+        public async Task GetProductsAsync_ReturnsData_WhenProductsExist()
+        {
+            // Arrange
+            var products = new List<Product>
+            {
+                new Product { Id = Guid.NewGuid(), ProductName = "P1" },
+                new Product { Id = Guid.NewGuid(), ProductName = "P2" }
+            };
+
+            var productDtos = new List<ProductDto>
+            {
+                new ProductDto { Id = products[0].Id, ProductName = "P1" },
+                new ProductDto { Id = products[1].Id, ProductName = "P2" }
+            };
+
+            _mockUnitOfWork
+                .Setup(u => u.Products.GetProductsAsync(0, 10))
+                .ReturnsAsync(products);
+
+            _mockMapper
+                .Setup(m => m.Map<List<ProductDto>>(products))
+                .Returns(productDtos);
+
+            // Act
+            var result = await _service.GetProductsAsync(0, 10);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(2, result.Count);
+            Assert.Equal("P1", result[0].ProductName);
+            Assert.Equal("P2", result[1].ProductName);
+
+            _mockUnitOfWork.Verify(u => u.Products.GetProductsAsync(0, 10), Times.Once);
+            _mockMapper.Verify(m => m.Map<List<ProductDto>>(products), Times.Once);
+        }
+
+        [Fact]
+        public async Task GetFilteredProducts_ReturnsEmptyList_WhenNoProducts()
+        {
+            // Arrange
+            var categoryId = Guid.NewGuid();
+            var products = new List<Product>();
+
+            _mockUnitOfWork
+                .Setup(u => u.Products.GetFilteredProduct(categoryId, 0, 10))
+                .ReturnsAsync(products);
+
+            _mockMapper
+                .Setup(m => m.Map<List<ProductDto>>(products))
+                .Returns(new List<ProductDto>());
+
+            // Act
+            var result = await _service.GetFilteredProducts(categoryId, 0, 10);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Empty(result);
+
+            _mockUnitOfWork.Verify(u => u.Products.GetFilteredProduct(categoryId, 0, 10), Times.Once);
+            _mockMapper.Verify(m => m.Map<List<ProductDto>>(products), Times.Once);
+        }
+
+        [Fact]
+        public async Task GetFilteredProducts_ReturnsData_WhenProductsExist()
+        {
+            // Arrange
+            var categoryId = Guid.NewGuid();
+
+            var products = new List<Product>
+            {
+                new Product { Id = Guid.NewGuid(), ProductName = "Filtered P1" },
+                new Product { Id = Guid.NewGuid(), ProductName = "Filtered P2" }
+            };
+
+            var productDtos = new List<ProductDto>
+            {
+                new ProductDto { Id = products[0].Id, ProductName = "Filtered P1" },
+                new ProductDto { Id = products[1].Id, ProductName = "Filtered P2" }
+            };
+
+            _mockUnitOfWork
+                .Setup(u => u.Products.GetFilteredProduct(categoryId, 0, 10))
+                .ReturnsAsync(products);
+
+            _mockMapper
+                .Setup(m => m.Map<List<ProductDto>>(products))
+                .Returns(productDtos);
+
+            // Act
+            var result = await _service.GetFilteredProducts(categoryId, 0, 10);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(2, result.Count);
+            Assert.Equal("Filtered P1", result[0].ProductName);
+            Assert.Equal("Filtered P2", result[1].ProductName);
+
+            _mockUnitOfWork.Verify(u => u.Products.GetFilteredProduct(categoryId, 0, 10), Times.Once);
+            _mockMapper.Verify(m => m.Map<List<ProductDto>>(products), Times.Once);
+        }
+
+        [Fact]
         public async Task GetProductByIdAsync_ReturnsNull_WhenNotFound()
         {
             var id = Guid.NewGuid();
-            _mockProductRepo.Setup(r => r.GetWithConditionAndIncludeAsync(It.IsAny<System.Linq.Expressions.Expression<Func<Product, bool>>>(), It.IsAny<System.Linq.Expressions.Expression<Func<Product, object>>[]>() ))
+            _mockProductRepo.Setup(r => r.GetWithConditionAndIncludeAsync(It.IsAny<System.Linq.Expressions.Expression<Func<Product, bool>>>(), It.IsAny<System.Linq.Expressions.Expression<Func<Product, object>>[]>()))
                 .ReturnsAsync((Product?)null);
 
             var result = await _service.GetProductByIdAsync(id);
@@ -70,7 +247,7 @@ namespace RetailSystem.Test.Services
 
             var dto = new ProductDto { Id = id, ProductName = "P1", Price = 2.5m, ProductImages = new List<SharedLibrary.Dtos.Products.ProductImageDto>(), Categories = new List<SharedLibrary.Dtos.Categories.CategoryDto>(), ProductVariants = new List<SharedLibrary.Dtos.Products.ProductVariantDto>(), CreatedAt = DateTimeOffset.UtcNow, UpdatedAt = DateTimeOffset.UtcNow };
 
-            _mockProductRepo.Setup(r => r.GetWithConditionAndIncludeAsync(It.IsAny<System.Linq.Expressions.Expression<Func<Product, bool>>>(), It.IsAny<System.Linq.Expressions.Expression<Func<Product, object>>[]>() ))
+            _mockProductRepo.Setup(r => r.GetWithConditionAndIncludeAsync(It.IsAny<System.Linq.Expressions.Expression<Func<Product, bool>>>(), It.IsAny<System.Linq.Expressions.Expression<Func<Product, object>>[]>()))
                 .ReturnsAsync(product);
 
             _mockMapper.Setup(m => m.Map<ProductDto>(product)).Returns(dto);
@@ -151,7 +328,7 @@ namespace RetailSystem.Test.Services
             };
 
             _mockCategoryRepo.Setup(c => c.GetByIdsAsync(cmd.CategoryIds)).ReturnsAsync(new List<Category>());
-            _mockProductRepo.Setup(p => p.GetWithConditionAndIncludeAsync(It.IsAny<System.Linq.Expressions.Expression<Func<Product, bool>>>(), It.IsAny<System.Linq.Expressions.Expression<Func<Product, object>>[]>() )).ReturnsAsync((Product?)null);
+            _mockProductRepo.Setup(p => p.GetWithConditionAndIncludeAsync(It.IsAny<System.Linq.Expressions.Expression<Func<Product, bool>>>(), It.IsAny<System.Linq.Expressions.Expression<Func<Product, object>>[]>())).ReturnsAsync((Product?)null);
 
             await Assert.ThrowsAsync<KeyNotFoundException>(() => _service.UpdateProductAsync(cmd));
         }
@@ -192,7 +369,7 @@ namespace RetailSystem.Test.Services
             };
 
             _mockCategoryRepo.Setup(c => c.GetByIdsAsync(cmd.CategoryIds)).ReturnsAsync(new List<Category>());
-            _mockProductRepo.Setup(p => p.GetWithConditionAndIncludeAsync(It.IsAny<System.Linq.Expressions.Expression<Func<Product, bool>>>(), It.IsAny<System.Linq.Expressions.Expression<Func<Product, object>>[]>() )).ReturnsAsync(product);
+            _mockProductRepo.Setup(p => p.GetWithConditionAndIncludeAsync(It.IsAny<System.Linq.Expressions.Expression<Func<Product, bool>>>(), It.IsAny<System.Linq.Expressions.Expression<Func<Product, object>>[]>())).ReturnsAsync(product);
             _mockCloudinary.Setup(c => c.UploadImages(cmd.ProductImages, "products")).ReturnsAsync(new List<string> { "new1.png" });
 
             _mockProductVariantRepo.Setup(v => v.Add(It.IsAny<ProductVariant>()));

@@ -6,5 +6,7 @@ namespace RetailSystem.Application.Interfaces.Services
     {
         Task<List<UserDto>> GetRegisteredCustomers();
         Task RegisterCustomerAsync(RegisterCustomerCommand command);
+        Task<string> Login(LoginCommand command);
+        Task<UserDto> GetUserInfo(string userId);
     }
 }

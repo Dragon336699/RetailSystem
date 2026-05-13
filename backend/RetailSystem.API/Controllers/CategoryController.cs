@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using RetailSystem.SharedLibrary.Dtos.Categories;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RetailSystem.Application.Interfaces.Services;
+using RetailSystem.SharedLibrary.Dtos.Categories;
 using System.Threading.Tasks;
 
 namespace RetailSystem.API.Controllers
@@ -23,6 +24,7 @@ namespace RetailSystem.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddNewCategories([FromBody] CreateCategoryCommand request)
         {
             var categoriesAdded = await _categoryService.AddCategoryAsync(request);
@@ -30,6 +32,7 @@ namespace RetailSystem.API.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateCategoy([FromBody] UpdateCategoryCommand request)
         {
             var categoryUpdated = await _categoryService.UpdateCategoryAsync(request);
@@ -37,6 +40,7 @@ namespace RetailSystem.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteCategory(Guid id)
         {
             await _categoryService.DeleteCategoryAsync(id);

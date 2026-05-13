@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using RetailSystem.Domain.Entities;
+using RetailSystem.Application.Interfaces.Seeder;
 
 namespace RetailSystem.Infrastructure.Persistence.Seed
 {
-    public class RoleSeeder
+    public class RoleSeeder : IDataSeeder
     {
         private readonly RoleManager<Role> _roleManager;
 
@@ -12,7 +13,7 @@ namespace RetailSystem.Infrastructure.Persistence.Seed
             _roleManager = roleManager;
         }
 
-        public async Task SeedRolesAsync()
+        public async Task SeedAsync()
         {
             string[] roles = { "Admin", "Customer" };
 

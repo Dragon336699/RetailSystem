@@ -3,6 +3,7 @@ using RetailSystem.API.Contracts.Products;
 using RetailSystem.API.Extensions;
 using RetailSystem.SharedLibrary.Dtos.Products;
 using RetailSystem.Application.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RetailSystem.API.Controllers
 {
@@ -42,6 +43,7 @@ namespace RetailSystem.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddProduct([FromForm] CreateProductRequest productRequest)
         {
             CreateProductCommand createProductCommand = productRequest.ToCreateProductCommand();
@@ -51,6 +53,7 @@ namespace RetailSystem.API.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateProduct([FromForm] UpdateProductRequest productRequest)
         {
             UpdateProductCommand updateProductCommand = productRequest.ToUpdateProductCommand();
@@ -60,6 +63,7 @@ namespace RetailSystem.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteProduct(Guid id)
         {
             await _productService.DeleteProductAsync(id);

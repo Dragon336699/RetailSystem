@@ -1,4 +1,5 @@
 ﻿using RetailSystem.Application.Interfaces.Repositories;
+using RetailSystem.Application.Interfaces.Seeder;
 using RetailSystem.Application.Interfaces.Services;
 using RetailSystem.Application.Interfaces.UnitOfWork;
 using RetailSystem.Application.Mappers;
@@ -27,6 +28,9 @@ namespace RetailSystem.API.Configs
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICloudinaryService, CloudinaryService>();
+
+            services.AddScoped<IDataSeeder, RoleSeeder>();
+            services.AddScoped<IDataSeeder, UserSeeder>();
 
             //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddAutoMapper(typeof(ProductMappingProfile));
