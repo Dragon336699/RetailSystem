@@ -29,8 +29,8 @@ export default function LoginPage() {
                 {/* ── Left: Form panel ── */}
                 <div className="flex flex-col justify-between w-5/12 px-10 py-10">
                     <div>
-                        <h1 className="text-3xl font-extrabold text-gray-800 mb-8 tracking-tight">
-                            Retail System
+                        <h1 className="text-2xl font-extrabold text-gray-800 mb-8 tracking-tight">
+                            Retail System Admin
                         </h1>
                         <LoginForm onSubmit={handleLogin} />
                     </div>

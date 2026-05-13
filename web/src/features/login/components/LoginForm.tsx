@@ -51,14 +51,6 @@ export default function LoginForm({ onSubmit }: Props) {
           Login in
         </Button>
       </Form.Item>
-
-      {/* Sign Up link */}
-      <p className="text-xs text-gray-400 mb-6">
-        Don't have an account?{" "}
-        <a href="#" className="text-indigo-600 font-semibold hover:underline">
-          Sign Up!
-        </a>
-      </p>
     </Form>
   );
 }
