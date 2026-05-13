@@ -1,0 +1,42 @@
+﻿@using RetailSystem.SharedLibrary.Contracts.Users;
+
+@{
+    Layout = "_AuthLayout";
+    ViewData["Title"] = "Register";
+}
+
+@model RegisterCustomerRequest
+
+<div class="card shadow-lg p-4" style="width: 380px;">
+    <h3 class="text-center mb-4">Register</h3>
+
+    <form id="registerForm" asp-action="RegisterUser" asp-controller="Auth" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="mb-3">
+            <span asp-validation-for="UserName">User Name</span>
+            <input asp-for="UserName" id ="userName" class="form-control" placeholder="Ex: dragon3366" />
+        </div>
+
+        <div class="mb-3">
+            <span asp-validation-for="FullName">Full Name</span>
+            <input asp-for="FullName" id="fullName" class="form-control" placeholder="Ex: Bảo Long" />
+        </div>
+
+        <div class="mb-3">
+            <span asp-validation-for="Password">Password</span>
+            <input type="password" asp-for="Password" id="password" class="form-control" placeholder="Ex: Test123123" />
+        </div>
+
+        <div class="mb-3">
+            <span asp-validation-for="ConfirmPassword">Confirm Password</span>
+            <input type="password" asp-for="ConfirmPassword" id="confirmPassword" class="form-control" placeholder="Ex: Test123123" />
+        </div>
+
+        <button type="Submit" class="btn btn-primary w-100">
+            Register
+        </button>
+
+        <div id="error" class="text-danger mt-2 small"></div>
+    </form>
+</div>

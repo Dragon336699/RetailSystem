@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RetailSystem.API.Contracts.Users;
+using RetailSystem.SharedLibrary.Contracts.Users;
 using RetailSystem.Application.Interfaces.Services;
 using RetailSystem.SharedLibrary.Dtos.Users;
 using System.Security.Claims;
@@ -18,6 +18,7 @@ namespace RetailSystem.API.Controllers
         }
 
         [HttpPost]
+        [Route("register")]
         public async Task<IActionResult> RegisterCustomer([FromBody] RegisterCustomerRequest request)
         {
             await _userService.RegisterCustomerAsync(new RegisterCustomerCommand

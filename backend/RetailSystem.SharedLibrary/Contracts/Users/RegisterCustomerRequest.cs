@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RetailSystem.API.Contracts.Users
+namespace RetailSystem.SharedLibrary.Contracts.Users
 {
     public class RegisterCustomerRequest
     {

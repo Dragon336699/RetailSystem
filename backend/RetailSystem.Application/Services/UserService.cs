@@ -6,6 +6,7 @@ using RetailSystem.Application.Interfaces.Services;
 using RetailSystem.Domain.Entities;
 using RetailSystem.SharedLibrary.Dtos.Users;
 using RetailSystem.SharedLibrary.Exceptions;
+using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -35,7 +36,7 @@ namespace RetailSystem.Application.Services
             var result = await _userManager.CreateAsync(user, command.Password);
 
             if (!result.Succeeded)
-                throw new Exception("Create user failed");
+                throw new ValidationException($"Create user failed: {string.Join(", ", result.Errors.Select(e => e.Description))}");
 
             await _userManager.AddToRoleAsync(user, "Customer");
         }
@@ -65,6 +66,7 @@ namespace RetailSystem.Application.Services
             var authClaims = new List<Claim>
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Name, user.UserName),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 };
 
