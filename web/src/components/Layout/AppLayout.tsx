@@ -1,11 +1,13 @@
-import { Link, Outlet } from "react-router-dom";
-import { Avatar, Layout, Menu, type MenuProps } from "antd";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Avatar, Button, Layout, Menu, type MenuProps } from "antd";
 import {
   BlockOutlined,
+  LogoutOutlined,
   ProductOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { useState } from "react";
+import { loginApi } from "../../features/login/apis/login.api";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -27,6 +29,18 @@ export default function AppLayout() {
   const { Header, Content, Sider } = Layout;
 
   const [collapsed, setCollapsed] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await loginApi.logout();
+      navigate("/login", { replace: true });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
+    }
+  }
 
   const items: MenuItem[] = [
     getItem(
@@ -49,7 +63,7 @@ export default function AppLayout() {
       </Link>,
       "customers",
       <UserOutlined />,
-    ),
+    )
   ];
 
   return (
@@ -61,9 +75,8 @@ export default function AppLayout() {
         onCollapse={(value) => setCollapsed(value)}
       >
         <div
-          className={`overflow-hidden transition-all duration-200 px-6 ${
-            collapsed ? "max-h-0 opacity-0 mt-0" : "max-h-20 opacity-100 mt-4"
-          }`}
+          className={`overflow-hidden transition-all duration-200 px-6 ${collapsed ? "max-h-0 opacity-0 mt-0" : "max-h-20 opacity-100 mt-4"
+            }`}
         >
           <h2 className="text-left mb-0">Retail System</h2>
           <p className="text-left text-sm text-gray-400">
@@ -79,14 +92,22 @@ export default function AppLayout() {
       </Sider>
       <Layout className="flex flex-col">
         <Header
-          className="flex flex-row-reverse items-center"
+          className="flex flex-row-reverse items-center gap-3"
           style={{
             padding: 0,
             background: "#ffffff",
             borderBottom: "1px solid #f0f0f0",
           }}
         >
-          <Avatar size="large" style={{ marginRight: 20 }}>
+          <Button
+            danger
+            icon={<LogoutOutlined />}
+            onClick={handleLogout}
+          >
+            Logout
+          </Button>
+
+          <Avatar size="large">
             N
           </Avatar>
         </Header>

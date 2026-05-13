@@ -42,6 +42,7 @@ export const productApi = {
       headers: {
         "Content-Type": "multipart/form-data",
       },
+      withCredentials: true,
     });
     return res.data;
   },
@@ -89,12 +90,15 @@ export const productApi = {
       headers: {
         "Content-Type": "multipart/form-data",
       },
+      withCredentials: true,
     });
     return res.data;
   },
 
   async deleteProduct(productId: string) {
-    const res = await apiClient.delete(`products/${productId}`);
+    const res = await apiClient.delete(`products/${productId}`, {
+      withCredentials: true,
+    });
     return res.data;
   },
 };

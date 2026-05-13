@@ -1,5 +1,9 @@
 import { apiClient } from "../../../api/apiClient";
-import type { Category, CreateCategoryRequest, UpdateCategoryRequest } from "../types/category.types";
+import type {
+  Category,
+  CreateCategoryRequest,
+  UpdateCategoryRequest,
+} from "../types/category.types";
 
 export const categoryApi = {
   async getAllCategories() {
@@ -7,18 +11,24 @@ export const categoryApi = {
     return res.data;
   },
 
-  async createCategory(categoryData: CreateCategoryRequest){
-    const res = await apiClient.post<Category>("categories", categoryData);
+  async createCategory(categoryData: CreateCategoryRequest) {
+    const res = await apiClient.post<Category>("categories", categoryData, {
+      withCredentials: true,
+    });
     return res.data;
   },
 
   async updateCategory(categoryData: UpdateCategoryRequest) {
-    const res = await apiClient.put<Category>("categories", categoryData);
+    const res = await apiClient.put<Category>("categories", categoryData, {
+      withCredentials: true,
+    });
     return res.data;
   },
 
   async deleteCategory(categoryId: string) {
-    const res = await apiClient.delete(`categories/${categoryId}`);
+    const res = await apiClient.delete(`categories/${categoryId}`, {
+      withCredentials: true,
+    });
     return res.data;
   },
 };
