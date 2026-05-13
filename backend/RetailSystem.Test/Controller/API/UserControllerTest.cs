@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Microsoft.AspNetCore.Http;
 using RetailSystem.API.Controllers;
-using RetailSystem.API.Contracts.Users;
+using RetailSystem.SharedLibrary.Contracts.Users;
 using RetailSystem.Application.Interfaces.Services;
 using RetailSystem.SharedLibrary.Dtos.Users;
 using Xunit;
