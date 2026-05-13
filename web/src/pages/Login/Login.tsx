@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { loginApi } from "../../features/login/apis/login.api";
 import LoginForm from "../../features/login/components/LoginForm";
 import type { LoginRequest } from "../../features/login/types/login.type";
+import { message } from "antd";
+import axios from "axios";
 
 export default function LoginPage() {
     const navigate = useNavigate();
@@ -11,9 +13,13 @@ export default function LoginPage() {
             await loginApi.login(data)
             navigate("/", { replace: true });
         } catch (error: unknown) {
-            if (error instanceof Error) {
-                console.log(error.message);
+            if (axios.isAxiosError(error)) {
+                const msg = error.response?.data?.message;
+                message.error(msg || "Something went wrong");
+                return;
             }
+
+            message.error("Fail, please try again!");
         }
     };
 

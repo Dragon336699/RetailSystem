@@ -1,5 +1,5 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import { Avatar, Button, Layout, Menu, type MenuProps } from "antd";
+import { Avatar, Button, Layout, Menu, message, type MenuProps } from "antd";
 import {
   BlockOutlined,
   LogoutOutlined,
@@ -8,6 +8,8 @@ import {
 } from "@ant-design/icons";
 import { useState } from "react";
 import { loginApi } from "../../features/login/apis/login.api";
+import { appMessage } from "../Message/message";
+import axios from "axios";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -36,9 +38,13 @@ export default function AppLayout() {
       await loginApi.logout();
       navigate("/login", { replace: true });
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.log(error.message);
+      if (axios.isAxiosError(error)) {
+        const msg = error.response?.data?.message;
+        message.error(msg || "Something went wrong");
+        return;
       }
+
+      message.error("Fail, please try again!");
     }
   }
 

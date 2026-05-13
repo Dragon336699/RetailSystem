@@ -10,6 +10,8 @@ import type {
   UpdateCategoryRequest,
 } from "../../features/category/types/category.types";
 import UpdateCategoryModal from "../../features/category/components/UpdateCategoryModal";
+import axios from "axios";
+import { message } from "antd";
 
 export default function Category() {
   const { data: categories } = useCategories();
@@ -35,9 +37,13 @@ export default function Category() {
         old?.filter((c) => c.id !== categoryId),
       );
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.log(error.message);
+      if (axios.isAxiosError(error)) {
+        const msg = error.response?.data?.message;
+        message.error(msg || "Something went wrong");
+        return;
       }
+
+      message.error("Fail, please try again!");
     }
   };
 
@@ -50,37 +56,45 @@ export default function Category() {
         old?.map((c) =>
           c.id === updatedCategory.id
             ? {
-                ...c,
-                categoryName: updatedCategory.categoryName,
-                description: updatedCategory.description,
-              }
+              ...c,
+              categoryName: updatedCategory.categoryName,
+              description: updatedCategory.description,
+            }
             : c,
         ),
       );
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.log(error.message);
+      if (axios.isAxiosError(error)) {
+        const msg = error.response?.data?.message;
+        message.error(msg || "Something went wrong");
+        return;
       }
+
+      message.error("Fail, please try again!");
     }
   };
 
   const handleCreateCategory = async (value: CreateCategoryRequest) => {
     try {
-      const newCategory =  await categoryApi.createCategory(value);
+      const newCategory = await categoryApi.createCategory(value);
       setIsCreateModalOpen(false);
 
       queryClient.setQueryData<Category[]>(["categories"], (old) => {
         if (!old) return [newCategory];
         return [...old, newCategory]
       }
-      
+
       );
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.log(error.message);
+      if (axios.isAxiosError(error)) {
+        const msg = error.response?.data?.message;
+        message.error(msg || "Something went wrong");
+        return;
       }
+
+      message.error("Fail, please try again!");
     }
-  }; 
+  };
 
   return (
     <>

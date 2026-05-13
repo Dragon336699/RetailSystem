@@ -1,5 +1,5 @@
 import { PlusOutlined } from "@ant-design/icons";
-import { Button } from "antd";
+import { Button, message } from "antd";
 import { useState } from "react";
 import ProductList from "../../features/product/components/ProductList";
 import { useProducts } from "../../features/product/hooks/product.hook";
@@ -14,6 +14,7 @@ import { productApi } from "../../features/product/apis/product.api";
 import { useSizes } from "../../features/size/hooks/size.hook";
 import { useQueryClient } from "@tanstack/react-query";
 import UpdateProductModal from "../../features/product/components/UpdateProductModal";
+import axios from "axios";
 
 export default function ProductPage() {
   const [page, setPage] = useState(1);
@@ -48,16 +49,18 @@ export default function ProductPage() {
         return [...old, newProduct];
       });
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.log(error.message);
+      if (axios.isAxiosError(error)) {
+        const msg = error.response?.data?.message;
+        message.error(msg || "Something went wrong");
+        return;
       }
+
+      message.error("Fail, please try again!");
     }
   };
 
   const handleUpdateProduct = async (value: UpdateProductRequest) => {
     try {
-      console.log(value);
-      
       const updatedProduct = await productApi.updateProduct(value);
       setIsUpdateModalOpen(false);
 
@@ -67,22 +70,26 @@ export default function ProductPage() {
         return old.map((p) =>
           p.id === value.id
             ? {
-                ...p,
-                productName: updatedProduct.productName,
-                categories: updatedProduct.categories,
-                price: updatedProduct.price,
-                createdAt: updatedProduct.createdAt,
-                updatedAt: updatedProduct.updatedAt,
-                productImages: updatedProduct.productImages,
-                productVariants: updatedProduct.productVariants,
-              }
+              ...p,
+              productName: updatedProduct.productName,
+              categories: updatedProduct.categories,
+              price: updatedProduct.price,
+              createdAt: updatedProduct.createdAt,
+              updatedAt: updatedProduct.updatedAt,
+              productImages: updatedProduct.productImages,
+              productVariants: updatedProduct.productVariants,
+            }
             : p,
         );
       });
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.log(error.message);
+      if (axios.isAxiosError(error)) {
+        const msg = error.response?.data?.message;
+        message.error(msg || "Something went wrong");
+        return;
       }
+
+      message.error("Fail, please try again!");
     }
   };
 
@@ -94,9 +101,13 @@ export default function ProductPage() {
         old?.filter((p) => p.id !== productId)
       );
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.log(error.message);
+      if (axios.isAxiosError(error)) {
+        const msg = error.response?.data?.message;
+        message.error(msg || "Something went wrong");
+        return;
       }
+
+      message.error("Fail, please try again!");
     }
   };
 
