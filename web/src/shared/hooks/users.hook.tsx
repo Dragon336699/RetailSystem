@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { userApi } from "../features/user/apis/user.api"
+import { userApi } from "../../features/user/apis/user.api"
 
 export const useUsers = () => {
     return useQuery({

@@ -1,4 +1,4 @@
-import { GenericModal } from "../../../components/Modal/GenericModal";
+import { GenericModal } from "../../../shared/ui/Modal/GenericModal";
 import type { Category } from "../../category/types/category.types";
 import type { Size } from "../../size/types/size.types";
 import type { Product, UpdateProductRequest } from "../types/product";

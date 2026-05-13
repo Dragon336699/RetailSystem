@@ -7,8 +7,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { useState } from "react";
-import { loginApi } from "../../features/login/apis/login.api";
-import { appMessage } from "../Message/message";
+import { loginApi } from "../../../features/login/apis/login.api";
 import axios from "axios";
 
 type MenuItem = Required<MenuProps>["items"][number];

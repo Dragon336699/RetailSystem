@@ -1,10 +1,10 @@
 import type { UploadFile } from "antd";
-import { apiClient } from "../../../api/apiClient";
 import type {
   CreateProductRequest,
   Product,
   UpdateProductRequest,
 } from "../types/product";
+import { apiClient } from "../../../shared/api/apiClient";
 
 export const productApi = {
   async getAllProducts(skip?: number, take?: number) {

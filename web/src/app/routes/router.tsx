@@ -1,10 +1,10 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import Layout from "../../components/Layout/AppLayout";
+import Layout from "../../shared/ui/Layout/AppLayout";
 import Product from "../../pages/Product/Product";
 import Category from "../../pages/Category/Category";
 import CustomerPage from "../../pages/User/User";
 import LoginPage from "../../pages/Login/Login";
-import ProtectedRoute from "../../components/Route/ProtectedRoute";
+import ProtectedRoute from "../../shared/ui/Route/ProtectedRoute";
 
 
 export const router = createBrowserRouter([

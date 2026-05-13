@@ -1,7 +1,7 @@
 import { Card } from "antd";
 import type { Category } from "../types/category.types";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
-import GenericPopConfirm from "../../../components/Modal/GenericPopConfirm";
+import GenericPopConfirm from "../../../shared/ui/Modal/GenericPopConfirm";
 
 type Props = {
   categories: Category[];

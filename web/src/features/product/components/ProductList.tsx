@@ -1,7 +1,7 @@
 import { Badge, Pagination, Table, type TableProps } from "antd";
 import type { Product } from "../types/product";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import GenericPopConfirm from "../../../components/Modal/GenericPopConfirm";
+import GenericPopConfirm from "../../../shared/ui/Modal/GenericPopConfirm";
 
 type ProductListProps = {
   products: Product[];

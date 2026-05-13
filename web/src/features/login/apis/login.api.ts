@@ -1,4 +1,4 @@
-import { apiClient } from "../../../api/apiClient";
+import { apiClient } from "../../../shared/api/apiClient";
 import type { LoginRequest } from "../types/login.type";
 
 export const loginApi = {

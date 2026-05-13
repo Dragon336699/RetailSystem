@@ -1,4 +1,4 @@
-import { GenericModal } from "../../../components/Modal/GenericModal";
+import { GenericModal } from "../../../shared/ui/Modal/GenericModal";
 import type { CreateCategoryRequest } from "../types/category.types";
 import CategoryForm from "./CategoryForm";
 
